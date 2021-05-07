@@ -1,4 +1,4 @@
-name: Create webapp infra
+name: webapp deploy
 on:
   workflow_dispatch:
     inputs: 
