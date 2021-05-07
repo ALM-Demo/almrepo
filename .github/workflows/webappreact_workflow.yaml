@@ -1,8 +1,7 @@
-name: Azure WebApp Container Deployment 
-
+name: Create webapp infra
 on:
-  repository_dispatch:
-    types: deployApp
+  workflow_dispatch:
+    inputs: 
 env:
   DOCKER_IMAGE_NAME: "${{ github.event.client_payload.docker_image_name }}"
   AZURE_WEB_APP: "${{ github.event.client_payload.webapp_name }}"
