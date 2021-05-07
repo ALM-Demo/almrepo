@@ -29,6 +29,6 @@ jobs:
       run: az webapp create --resource-group $AZURE_RESOURCE_GROUP --plan $AZURE_SERVICE_PLAN_NAME
         --name $AZURE_WEB_APP --deployment-container-image-name ${{ secrets.REGISTRY_LOGIN_SERVER}}/${{env.DOCKER_IMAGE_NAME}}:latest
 name: Create webapp infra
-true:
+on:
   workflow_dispatch:
-    inputs: null
+    inputs: 
