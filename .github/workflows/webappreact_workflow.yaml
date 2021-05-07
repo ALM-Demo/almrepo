@@ -3,8 +3,8 @@ on:
   workflow_dispatch:
     inputs: 
 env:
-  DOCKER_IMAGE_NAME: "${{ github.event.client_payload.docker_image_name }}"
-  AZURE_WEB_APP: "${{ github.event.client_payload.webapp_name }}"
+  DOCKER_IMAGE_NAME: "alm-react-appservice-poc"
+  AZURE_WEB_APP: "alm-react-appservice-poc"
   AZURE_RESOURCE_GROUP: 'rg-by-workflow-shared-dev-eus2-01'
 
 jobs:
