@@ -1,0 +1,48 @@
+jobs:
+  create-infra:
+    env:
+      AZURE_APP_NAME: reactservice
+      AZURE_APP_RUNTIME: NODE|12-lts
+      AZURE_RESOURCE_GROUP: rg-by-workflow-shared-dev-eus2-01
+      AZURE_SERVICE_PLAN_NAME: plat-lext
+      DEPLOY_ENV: ${{ matrix.azureenv }}
+    environment: sandbox
+    name: Create Infra
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set the env variables according to env
+      run: 'echo ${{matrix.azureenv}}
+
+        echo $DEPLOY_ENV
+
+        echo "AZURE_APP_ENV_NAME=${AZURE_APP_NAME}${DEPLOY_ENV}" >> $GITHUB_ENV
+
+        '
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Create App Service plan
+      run: 'az appservice plan create --name $AZURE_SERVICE_PLAN_NAME \
+
+        --resource-group $AZURE_RESOURCE_GROUP \
+
+        --is-linux --number-of-workers 4 --sku S1
+
+        '
+    - name: Create azure webapp
+      run: 'az webapp create --name $AZURE_APP_ENV_NAME \
+
+        --plan $AZURE_SERVICE_PLAN_NAME \
+
+        --resource-group $AZURE_RESOURCE_GROUP \
+
+        --runtime $AZURE_APP_RUNTIME'
+    strategy:
+      matrix:
+        azureenv:
+        - sandbox
+name: Create azure infra for react/node apps
+on:
+  workflow_dispatch:
+    inputs:

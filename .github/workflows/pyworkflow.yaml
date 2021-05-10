@@ -1,0 +1,33 @@
+jobs:
+  create-infra:
+    env:
+      AZURE_REGISTRY_NAME: 'acralmpoc'
+      AZURE_RESOURCE_GROUP: 'rg-by-workflow-shared-dev-eus2-01'
+      DOCKER_IMAGE_NAME: 'alm-react-appservice-poc'
+      AZURE_WEB_APP: 'alm-react-appservice-poc'
+      AZURE_APP_RUNTIME: 'NODE|12-lts'
+      AZURE_SERVICE_PLAN_NAME: 'aspn-alm-react-appservice-poc'
+      CONTAINER_REGISTRY_SKU: 'Basic'
+      WEB_APP_SKU: 'S1'
+      NUMBER_OF_WORKERS: '4'
+      CONTAINER_ADMIN_ENABLED: true
+
+    name: acr
+    runs-on: ubuntu-latest
+    steps:      
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Create Container Registry
+      #run: 'az acr create --resource-group $AZURE_RESOURCE_GROUP --name $AZURE_REGISTRY_NAME --sku Basic --admin-enabled true'
+      #run: 'az acr delete --resource-group $AZURE_RESOURCE_GROUP --name $AZURE_REGISTRY_NAME --yes'
+      run: |
+        az acr credential show --resource-group $AZURE_RESOURCE_GROUP --name $AZURE_REGISTRY_NAME
+        export TOKEN=$(az acr login --name $AZURE_REGISTRY_NAME --expose-token --output tsv --query accessToken)
+        echo $TOKEN
+      
+name: acr
+on:
+  workflow_dispatch:
+    inputs:
