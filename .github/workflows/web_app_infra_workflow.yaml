@@ -1,0 +1,75 @@
+jobs:
+  create-web-app-infra:
+    env:
+      AZURE_ACR_ADMIN_ENABLED: true
+      AZURE_ACR_NAME_PREFIX: almacr
+      AZURE_ACR_SKU: Standard
+      AZURE_DEPLOY_ENVIRONMENT: ${{ github.event.client_payload.environment }}
+      AZURE_RESOURCE_GROUP: ${{ github.event.client_payload.resource_group }}
+      AZURE_SUBSCRIPTION: ${{ github.event.client_payload.subscription }}
+      AZURE_WEB_APP_IMAGE_TAG: latest
+      AZURE_WEB_APP_NAME_PREFIX: alm-app
+      AZURE_WEB_APP_RUNTIME: NODE|12-lts
+      AZURE_WEB_APP_SKU: S1
+      AZURE_WEB_APP_TYPE: ${{ github.event.client_payload.app_type }}
+      AZURE_WEB_APP_WORKERS: '4'
+      GITHUB_REPO_NAME: ${{ github.event.client_payload.repo }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set env
+      run: 'echo "AZURE_WEB_APP_NAME_PREFIX=${AZURE_WEB_APP_NAME_PREFIX}-${AZURE_WEB_APP_TYPE}"
+        >> $GITHUB_ENV
+
+        echo "AZURE_WEB_APP_SVC_PLAN=${AZURE_WEB_APP_NAME_PREFIX}-${AZURE_DEPLOY_ENVIRONMENT}"
+        >> $GITHUB_ENV
+
+        echo "AZURE_WEB_APP_NAME=${AZURE_WEB_APP_NAME_PREFIX}-${GITHUB_REPO_NAME}-${AZURE_DEPLOY_ENVIRONMENT}"
+        >> $GITHUB_ENV
+
+        echo "AZURE_ACR_NAME=${AZURE_ACR_NAME_PREFIX}${AZURE_DEPLOY_ENVIRONMENT}"
+        >> $GITHUB_ENV
+
+        echo "AZURE_WEB_APP_IMAGE_NAME=${GITHUB_REPO_NAME}-${AZURE_DEPLOY_ENVIRONMENT}"
+        >> $GITHUB_ENV
+
+        '
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Create Azure Container Registry
+      run: 'az acr create --resource-group $AZURE_RESOURCE_GROUP --name $AZURE_ACR_NAME
+        --sku $AZURE_ACR_SKU --admin-enabled $AZURE_ACR_ADMIN_ENABLED
+
+        '
+    - name: Create Azure App Service Plan
+      run: 'az appservice plan create --name $AZURE_WEB_APP_SVC_PLAN --resource-group
+        $AZURE_RESOURCE_GROUP --is-linux --number-of-workers $AZURE_WEB_APP_WORKERS
+        --sku $AZURE_WEB_APP_SKU
+
+        '
+    - name: Create Azure Web App
+      run: 'az webapp create --resource-group $AZURE_RESOURCE_GROUP \
+
+        --plan $AZURE_WEB_APP_SVC_PLAN \
+
+        --name $AZURE_WEB_APP_NAME \
+
+        --runtime $AZURE_WEB_APP_RUNTIME
+
+        '
+    - name: Update Web App Container Settings
+      run: 'az webapp config container set --name $AZURE_WEB_APP_NAME \
+
+        --resource-group $AZURE_RESOURCE_GROUP \
+
+        --docker-registry-server-url "https://$AZURE_ACR_NAME.azurecr.io" \
+
+        --docker-registry-server-user $AZURE_ACR_NAME \
+
+        --docker-registry-server-password `az acr credential show -n $AZURE_ACR_NAME
+        --query passwords[0].value`'
+name: Create Infra for Azure Web App
+'on':
+  repository_dispatch:
+    types: app_service_infra
