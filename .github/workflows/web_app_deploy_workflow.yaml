@@ -56,4 +56,4 @@ jobs:
         
     - name: Update Web App Container Settings
       run: |
-        az webapp config container set -n alm-app-react-almrepo-dev -g rg-by-workflow-shared-dev-eus2-01 --docker-custom-image-name almacrdev.azurecr.io/almrepo-dev:latest --docker-registry-server-url https://almacrdev.azurecr.io --docker-registry-server-user almacrdev --docker-registry-server-password veh65IFApm=u0KSqAkygQ6WHigjbVNYw
+        az webapp config container set -n $AZURE_WEB_APP_NAME -g $AZURE_RESOURCE_GROUP --docker-custom-image-name $AZURE_ACR_NAME.azurecr.io/$AZURE_WEB_APP_IMAGE_NAME:latest --docker-registry-server-url https://$AZURE_ACR_NAME.azurecr.io --docker-registry-server-user $AZURE_ACR_NAME --docker-registry-server-password `az acr credential show -n $AZURE_ACR_NAME --query passwords[0].value -o tsv`
