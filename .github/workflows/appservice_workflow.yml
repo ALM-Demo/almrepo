@@ -1,4 +1,4 @@
-name: Create webapp deploy
+name: Create dotnet deploy
 on:
   workflow_dispatch:
     inputs:
@@ -15,50 +15,14 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag '${{env.DOCKER_IMAGE_NAME}}':latest
-    - name: List Docker images
-      run: docker images
-    - name: Docker Login
-      uses: azure/docker-login@v1
-      with:
-            login-server: ${{ secrets.REGISTRY_LOGIN_SERVER}}
-            username: ${{ secrets.REGISTRY_USERNAME }}
-            password: ${{ secrets.REGISTRY_PASSWORD }}
-    - name: Tag the Docker image
-      run: docker tag '${{env.DOCKER_IMAGE_NAME}}':latest '${{secrets.REGISTRY_LOGIN_SERVER}}'/'${{env.DOCKER_IMAGE_NAME}}':latest
-    - name: Push the Docker image
-      run: docker push '${{secrets.REGISTRY_LOGIN_SERVER}}'/'${{env.DOCKER_IMAGE_NAME}}':latest	  
-    - name: Azure Login
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-  
-
-    - name: Set Web App ACR authentication
-      uses: Azure/appservice-settings@v1
-      with:
-        app-name: ${{ env.AZURE_WEB_APP }} 
-        app-settings-json: |
-          [
-              {
-                  "name": "DOCKER_REGISTRY_SERVER_PASSWORD",
-                  "value": "${{ secrets.REGISTRY_PASSWORD }}",
-                  "slotSetting": false
-              },
-              {
-                  "name": "DOCKER_REGISTRY_SERVER_URL",
-                  "value": "https://${{ secrets.REGISTRY_LOGIN_SERVER }}",
-                  "slotSetting": false
-              },
-              {
-                  "name": "DOCKER_REGISTRY_SERVER_USERNAME",
-                  "value": "${{ secrets.REGISTRY_USERNAME  }}",
-                  "slotSetting": false
-              }
-          ]  
-    - name: Azure WebApp Deployment
-      uses: Azure/webapps-deploy@v2
-      with:
-        # Name of the Azure Web App
-        app-name: '${{env.AZURE_WEB_APP}}'
-        images: '${{secrets.REGISTRY_LOGIN_SERVER}}/${{env.DOCKER_IMAGE_NAME}}:latest'
+      run: |
+        az group create --name rg-by-workflow-shared-dev-eus2-01 --location eastus2
+        az acr create --resource-group rg-by-workflow-shared-dev-eus2-01 --name frankContainerDemo001 --sku Basic --admin-enabled true
+        az acr credential show -n frankContainerDemo001
+        # docker build -t rg-by-workflow-shared-dev-eus2-01 .
+        # docker tag rg-by-workflow-shared-dev-eus2-01 frankContainerDemo001.azurecr.io/rg-by-workflow-shared-dev-eus2-01:v1
+        # docker login https://frankContainerDemo001.azurecr.io -u frankContainerDemo001 -p <Password_Retreived>
+        # docker push frankContainerDemo001.azurecr.io/rg-by-workflow-shared-dev-eus2-01:v1
+        # az appservice plan create --name demoplanweb --resource-group rg-by-workflow-shared-dev-eus2-01 --sku S1 --is-linux
+        # az webapp create -g rg-by-workflow-shared-dev-eus2-01 -p demoplanweb -n frankdockerdemoweb --runtime "DOTNETCORE|2.1"
+        # az webapp config container set -n frankdockerdemoweb -g rg-by-workflow-shared-dev-eus2-01 --docker-custom-image-name frankContainerDemo001.azurecr.io/rg-by-workflow-shared-dev-eus2-01:v1 --docker-registry-server-url https://frankContainerDemo001.azurecr.io --docker-registry-server-user frankContainerDemo001 --docker-registry-server-password <Password_Retreived> 
