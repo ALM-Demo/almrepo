@@ -3,9 +3,6 @@ name: dotnet
   push:
     paths:
     - .github/workflows/sample.yaml
-env:
-  DOCKER_IMAGE_NAME: "alm-react-appservice-poc"
-  AZURE_WEB_APP: "alm-react-appservice-poc"
 
 jobs:
 
@@ -21,4 +18,4 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: Build the Docker image
       run: |
-        az webapp deleted list --name alm-workflow
+        az webapp deleted list --name rg-by-workflow-shared-dev-eus2-01
