@@ -1,7 +1,8 @@
-name: Create dotnet deploy
-on:
-  workflow_dispatch:
-    inputs:
+name: dotnet
+'on':
+  push:
+    paths:
+    - .github/workflows/sample.yaml
 env:
   DOCKER_IMAGE_NAME: "alm-react-appservice-poc"
   AZURE_WEB_APP: "alm-react-appservice-poc"
@@ -14,19 +15,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Login to Azure
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: Build the Docker image
       run: |
-        az group create --name dotnetcoredockerappservicedemo --location eastus
-        az acr create --resource-group dotnetcoredockerappservicedemo --name frankContainerDemo01 --sku Basic --admin-enabled true
-        az acr credential show -n frankContainerDemo01
-        # docker build -t dotnetcoredockerappservicedemo .
-        # docker tag dotnetcoredockerappservicedemo frankcontainerdemo01.azurecr.io/dotnetcoredockerappservicedemo:v1
-        # docker login https://frankcontainerdemo01.azurecr.io -u frankContainerDemo01 -p <Password_Retreived>
-        # docker push frankcontainerdemo01.azurecr.io/dotnetcoredockerappservicedemo:v1
-        # az appservice plan create --name demoplan --resource-group dotnetcoredockerappservicedemo --sku S1 --is-linux
-        # az webapp create -g dotnetcoredockerappservicedemo -p demoplan -n frankdockerdemo --runtime "DOTNETCORE|2.1"
-        # az webapp config container set -n frankdockerdemo -g dotnetcoredockerappservicedemo --docker-custom-image-name frankcontainerdemo01.azurecr.io/dotnetcoredockerappservicedemo:v1 --docker-registry-server-url https://frankcontainerdemo01.azurecr.io --docker-registry-server-user frankContainerDemo01 --docker-registry-server-password <Password_Retreived> 
+        #az group create --name rg-by-workflow-shared-dev-eus2-01 --location eastus2
+        az acr create --resource-group rg-by-workflow-shared-dev-eus2-01 --name frankContainerDemo001 --sku Basic --admin-enabled true
+        az acr credential show -n frankContainerDemo001
+        # docker build -t rg-by-workflow-shared-dev-eus2-01 .
+        # docker tag rg-by-workflow-shared-dev-eus2-01 frankContainerDemo001.azurecr.io/rg-by-workflow-shared-dev-eus2-01:v1
+        # docker login https://frankContainerDemo001.azurecr.io -u frankContainerDemo001 -p <Password_Retreived>
+        # docker push frankContainerDemo001.azurecr.io/rg-by-workflow-shared-dev-eus2-01:v1
+        # az appservice plan create --name demoplanweb --resource-group rg-by-workflow-shared-dev-eus2-01 --sku S1 --is-linux
+        # az webapp create -g rg-by-workflow-shared-dev-eus2-01 -p demoplanweb -n frankdockerdemoweb --runtime "DOTNETCORE|2.1"
+        # az webapp config container set -n frankdockerdemoweb -g rg-by-workflow-shared-dev-eus2-01 --docker-custom-image-name frankContainerDemo001.azurecr.io/rg-by-workflow-shared-dev-eus2-01:v1 --docker-registry-server-url https://frankContainerDemo001.azurecr.io --docker-registry-server-user frankContainerDemo001 --docker-registry-server-password <Password_Retreived> 
