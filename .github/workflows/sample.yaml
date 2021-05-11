@@ -19,3 +19,7 @@ jobs:
     - name: Build the Docker image
       run: |
         az webapp deleted list --name rg-by-workflow-shared-dev-eus2-01
+    - name: Perform a Pester test from the Tests.ps1 file
+      shell: pwsh
+      run: |
+        Get-AzDeletedWebApp -Name alm-workflow
