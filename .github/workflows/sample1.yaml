@@ -1,0 +1,38 @@
+name: dotnet
+'on':
+  push:
+    paths:
+    - .github/workflows/sample1.yaml
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      AZURE_DEPLOY_ENVIRONMENT: dev
+    steps:
+    - uses: actions/checkout@v2
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: get url
+      run: |
+        queryout=$(az webapp config hostname list --webapp-name alm-app-node-nodeappservice-dev --resource-group rg-by-workflow-shared-dev-eus2-01 --query [].name -o tsv)
+        echo $queryout
+        hosturl="https://"$queryout
+        echo $hosturl
+        WORKING_VARIABLE=$(source .github/hosturl/endpoints; echo $dev_endpoint)
+        echo $WORKING_VARIABLE
+    - name: Set selected color
+      run: echo ::set-output name=out1::$hosturl
+      id: hostur
+    - name: if loop
+      run: |      
+        if [ $hosturl != $WORKING_VARIABLE ]
+        then
+          echo $AZURE_DEPLOY_ENVIRONMENT
+          sed -i 's/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=.*/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=${{ steps.hostur.outputs.out1 }}/' .github/hosturl/endpoints
+          cat .github/hosturl/endpoints
+        else
+          echo "strings are equal"
+        fi
