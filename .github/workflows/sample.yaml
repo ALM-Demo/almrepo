@@ -26,7 +26,7 @@ jobs:
         if [ $hosturl != $WORKING_VARIABLE ]
         then
           echo $AZURE_DEPLOY_ENVIRONMENT
-          sed -i '' "s/$AZURE_DEPLOY_ENVIRONMENT_endpoint=.*/$AZURE_DEPLOY_ENVIRONMENT_endpoint=$hosturl/" .github/hosturl/endpoints
+          sed -i '' "s#$AZURE_DEPLOY_ENVIRONMENT_endpoint=.*#$AZURE_DEPLOY_ENVIRONMENT_endpoint=$hosturl#" .github/hosturl/endpoints
           cat .github/hosturl/endpoints
           git add .github/hosturl/endpoints
           git config --global user.email "dhanasekhar.podigiri@blueyonder.com"
