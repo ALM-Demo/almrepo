@@ -5,9 +5,7 @@ name: dotnet
     - .github/workflows/sample.yaml
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -26,7 +24,7 @@ jobs:
         echo $WORKING_VARIABLE
         if [ $hosturl != $WORKING_VARIABLE ]
         then
-          echo "strings not equal"
+          echo "string not equal"
         else
           echo "strings are equal"
         fi
