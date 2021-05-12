@@ -31,7 +31,7 @@ jobs:
         if [ $hosturl != $WORKING_VARIABLE ]
         then
           echo $AZURE_DEPLOY_ENVIRONMENT
-          echo 'PR_TITLE=${hosturl}' >> $GITHUB_ENV
+          echo 'PR_TITLE=$hosturl' >> $GITHUB_ENV
           echo ${{ env.PR_TITLE }}
           sed -i 's/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=.*/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=${{ env.PR_TITLE }}/' .github/hosturl/endpoints
           cat .github/hosturl/endpoints
