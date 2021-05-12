@@ -25,6 +25,7 @@ jobs:
         if [ $hosturl != $WORKING_VARIABLE ]
         then
           sed -i 's/dev_endpoint=.*/dev_endpoint=test/' .github/hosturl/endpoints
+          cat .github/hosturl/endpoints
         else
           echo "strings are equal"
         fi
