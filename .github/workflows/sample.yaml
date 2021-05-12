@@ -18,4 +18,4 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: get url
       run: |
-        az webapp deployment container show-cd-url --name alm-app-node-nodeappservice-dev --resource-group rg-by-workflow-shared-dev-eus2-01
+        az webapp config hostname list --name alm-app-node-nodeappservice-dev --resource-group rg-by-workflow-shared-dev-eus2-01
