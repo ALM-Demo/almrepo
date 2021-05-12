@@ -1,1 +1,2 @@
 dev_endpoint=https://alm-app-node-nodeappservice-dev.azurewebsites.net
+qa_endpoint=https://alm-app-node-nodeappservice-dev.azurewebsites.net
