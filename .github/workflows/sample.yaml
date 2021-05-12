@@ -16,8 +16,6 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - name: powershell
-      shell: pwsh
+    - name: get url
       run: |
-        Install-Module AzureRM
-        Get-AzDeletedWebApp -Name alm-workflow
+        az webapp deployment container show-cd-url --name alm-app-node-nodeappservice-dev --resource-group rg-by-workflow-shared-dev-eus2-01
