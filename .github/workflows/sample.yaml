@@ -31,5 +31,7 @@ jobs:
           cat .github/hosturl/endpoints
         fi
         git add .github/hosturl/endpoints
+        git config --global user.email "dhanasekhar.podigiri@blueyonder.com"
+        git config --global user.name "dhanasekhar podigiri"
         git commit .github/hosturl/endpoints -m "host name updated"
         git push
