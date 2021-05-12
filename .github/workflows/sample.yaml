@@ -20,5 +20,5 @@ jobs:
       run: |
         queryout=$(az webapp config hostname list --webapp-name alm-app-node-nodeappservice-dev --resource-group rg-by-workflow-shared-dev-eus2-01 --query [].name -o tsv)
         echo $queryout
-        hosturl="https//"$queryout
+        hosturl="https://"$queryout
         echo $hosturl
