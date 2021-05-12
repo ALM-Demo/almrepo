@@ -23,13 +23,15 @@ jobs:
         echo $hosturl
         WORKING_VARIABLE=$(source .github/hosturl/endpoints; echo $dev_endpoint)
         echo $WORKING_VARIABLE
+    - name: Set selected color
+      run: echo '::set-output name=out1::$hosturl'
+      id: hostur
+    - name: if loop
+      run: |      
         if [ $hosturl != $WORKING_VARIABLE ]
         then
           echo $AZURE_DEPLOY_ENVIRONMENT
-          echo "hosturl1=$hosturl" >> $GITHUB_ENV
-          echo ${{env.hosturl1}}
-          echo $hosturl1
-          sed -i 's/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=.*/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=${{ env.hosturl1 }}/' .github/hosturl/endpoints
+          sed -i 's/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=.*/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=${{ steps.hostur.out1 }}/' .github/hosturl/endpoints
           cat .github/hosturl/endpoints
         else
           echo "strings are equal"
