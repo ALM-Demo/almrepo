@@ -35,5 +35,5 @@ jobs:
           sed -i 's/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=.*/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=${{ env.PR_TITLE }}/' .github/hosturl/endpoints
           cat .github/hosturl/endpoints
         else
-          echo "strings are equal"
+          echo "string are equal"
         fi
