@@ -2,7 +2,7 @@ name: dotnet
 'on':
   push:
     paths:
-    - .github/workflows/sample.yaml
+    - .github/workflows/sample1.yaml
 
 jobs:
   build:
@@ -20,19 +20,14 @@ jobs:
         queryout=$(az webapp config hostname list --webapp-name alm-app-node-nodeappservice-dev --resource-group rg-by-workflow-shared-dev-eus2-01 --query [].name -o tsv)
         echo $queryout
         hosturl="https://"$queryout
-        echo "PR_TITLE=$hosturl" >> $GITHUB_ENV
         echo $hosturl
+        run: echo "HOST_URL=$(echo $hosturl)" >> $GITHUB_ENV
         WORKING_VARIABLE=$(source .github/hosturl/endpoints; echo $dev_endpoint)
         echo $WORKING_VARIABLE
-    - name: Set selected color
-      run: echo ::set-output name=out1::$hosturl
-      id: hostur
-    - name: if loop
-      run: |      
         if [ $hosturl != $WORKING_VARIABLE ]
         then
           echo $AZURE_DEPLOY_ENVIRONMENT
-          sed -i 's/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=.*/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=${{ env.PR_TITLE }}/' .github/hosturl/endpoints
+          sed -i 's/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=.*/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=$HOST_URL/' .github/hosturl/endpoints
           cat .github/hosturl/endpoints
         else
           echo "strings are equal"
