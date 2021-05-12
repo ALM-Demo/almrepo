@@ -24,7 +24,7 @@ jobs:
         WORKING_VARIABLE=$(source .github/hosturl/endpoints; echo $dev_endpoint)
         echo $WORKING_VARIABLE
     - name: Set selected color
-      run: echo ::set-output name=out1::${hosturl}
+      run: echo ::set-output name=out1::echo ${hosturl}
       id: hostur
     - name: if loop
       run: |      
