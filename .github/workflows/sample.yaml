@@ -26,7 +26,8 @@ jobs:
         if [ $hosturl != $WORKING_VARIABLE ]
         then
           echo $AZURE_DEPLOY_ENVIRONMENT
-          sed -i 's/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=.*/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint="${hosturl}"/' .github/hosturl/endpoints
+          echo "hosturl1=${hosturl}" >> $GITHUB_ENV
+          sed -i 's/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=.*/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=${{ env.AZURE_DEPLOY_ENVIRONMENT }}/' .github/hosturl/endpoints
           cat .github/hosturl/endpoints
         else
           echo "strings are equal"
