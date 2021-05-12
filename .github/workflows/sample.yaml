@@ -22,3 +22,5 @@ jobs:
         echo $queryout
         hosturl="https://"$queryout
         echo $hosturl
+        WORKING_VARIABLE=$(source .github/hosturl/endpoints; echo $dev_endpoint)
+        echo $WORKING_VARIABLE
