@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      AZURE_DEPLOY_ENVIRONMENT: "dev"
+      AZURE_DEPLOY_ENVIRONMENT: dev
     steps:
     - uses: actions/checkout@v2
     - name: Login to Azure
@@ -25,6 +25,7 @@ jobs:
         echo $WORKING_VARIABLE
         if [ $hosturl != $WORKING_VARIABLE ]
         then
+          echo $AZURE_DEPLOY_ENVIRONMENT
           sed -i 's/$AZURE_DEPLOY_ENVIRONMENT_endpoint=.*/$AZURE_DEPLOY_ENVIRONMENT_endpoint=test11/' .github/hosturl/endpoints
           cat .github/hosturl/endpoints
         else
