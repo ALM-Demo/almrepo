@@ -19,20 +19,14 @@ jobs:
       run: |
         queryout=$(az webapp config hostname list --webapp-name alm-app-node-nodeappservice-dev --resource-group rg-by-workflow-shared-dev-eus2-01 --query [].name -o tsv)
         echo $queryout
-        hosturl="https://"$queryout
-        echo "PR_TITLE=$hosturl" >> $GITHUB_ENV
+        export hosturl="https://"$queryout
         echo $hosturl
         WORKING_VARIABLE=$(source .github/hosturl/endpoints; echo $dev_endpoint)
         echo $WORKING_VARIABLE
-    - name: Set selected color
-      run: echo ::set-output name=out1::$hosturl
-      id: hostur
-    - name: if loop
-      run: |      
         if [ $hosturl != $WORKING_VARIABLE ]
         then
           echo $AZURE_DEPLOY_ENVIRONMENT
-          sed -i 's/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=.*/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=${{ env.PR_TITLE }}/' .github/hosturl/endpoints
+          sed -i 's/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=.*/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint="$hosturl"/' .github/hosturl/endpoints
           cat .github/hosturl/endpoints
         else
           echo "strings are equal"
