@@ -7,7 +7,8 @@ name: dotnet
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    env:
+      AZURE_DEPLOY_ENVIRONMENT: "dev"
     steps:
     - uses: actions/checkout@v2
     - name: Login to Azure
@@ -24,7 +25,7 @@ jobs:
         echo $WORKING_VARIABLE
         if [ $hosturl != $WORKING_VARIABLE ]
         then
-          sed -i 's/dev_endpoint=.*/dev_endpoint=test/' .github/hosturl/endpoints
+          sed -i 's/$AZURE_DEPLOY_ENVIRONMENT_endpoint=.*/$AZURE_DEPLOY_ENVIRONMENT_endpoint=test11/' .github/hosturl/endpoints
           cat .github/hosturl/endpoints
         else
           echo "strings are equal"
