@@ -3,7 +3,6 @@ name: dotnet
   push:
     paths:
     - .github/workflows/sample.yaml
-
 jobs:
   build:
     runs-on: ubuntu-latest
