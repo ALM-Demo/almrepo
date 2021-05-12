@@ -21,7 +21,7 @@ jobs:
         echo $queryout
         export hosturl="https://"$queryout
         echo $hosturl
-        run: echo "HOST_URL=$(echo $hosturl)" >> $GITHUB_ENV
+        echo "HOST_URL=$(echo $hosturl)" >> $GITHUB_ENV
         WORKING_VARIABLE=$(source .github/hosturl/endpoints; echo $dev_endpoint)
         echo $WORKING_VARIABLE
         if [ $hosturl != $WORKING_VARIABLE ]
