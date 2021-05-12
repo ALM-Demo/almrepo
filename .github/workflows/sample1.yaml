@@ -20,7 +20,7 @@ jobs:
         queryout=$(az webapp config hostname list --webapp-name alm-app-node-nodeappservice-dev --resource-group rg-by-workflow-shared-dev-eus2-01 --query [].name -o tsv)
         echo $queryout
         hosturl="https://"$queryout
-        echo "PR_TITLE=${hosturl}" >> $GITHUB_ENV
+        echo "PR_TITLE=$hosturl" >> $GITHUB_ENV
         echo $hosturl
         WORKING_VARIABLE=$(source .github/hosturl/endpoints; echo $dev_endpoint)
         echo $WORKING_VARIABLE
@@ -32,7 +32,6 @@ jobs:
         if [ $hosturl != $WORKING_VARIABLE ]
         then
           echo $AZURE_DEPLOY_ENVIRONMENT
-          echo ${{ env.PR_TITLE }}
           sed -i 's/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=.*/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=${{ env.PR_TITLE }}/' .github/hosturl/endpoints
           cat .github/hosturl/endpoints
         else
