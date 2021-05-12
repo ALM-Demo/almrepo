@@ -34,3 +34,4 @@ jobs:
           git commit .github/hosturl/endpoints -m "host name updated"
           git push
         fi
+    
