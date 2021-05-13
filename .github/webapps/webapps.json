@@ -1,0 +1,10 @@
+{
+  "app1": {
+    "resource_group": "app1 rg",
+    "webapp_endpoint": "app1 ep"
+  },
+  "app2": {
+    "resource_group": "app2 rg",
+    "webapp_endpoint": "app2 ep"
+  }
+}
