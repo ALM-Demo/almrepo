@@ -17,6 +17,11 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: get endpoint url
+      run: |
+        queryout=$(az webapp config hostname list --webapp-name $AZURE_WEB_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --query [].name -o tsv)
+        export hosturl="https://"$queryout
+
     - name: check file exist or not
       run: |
         if [ ! -f .github/webapps/webapps.json ]
@@ -30,13 +35,13 @@ jobs:
                    "webapp_endpoint": "$hosturl"
                 }
               }
-           EOF
-           cat .github/webapps/webapps.json
-           git add .github/webapps/webapps.json
-           git config --global user.email "dhanasekhar.podigiri@blueyonder.com"
-           git config --global user.name "dhanasekhar podigiri"
-           git commit .github/webapps/webapps.json -m "host name updated"
-           git push
+          EOF
+          cat .github/webapps/webapps.json
+          git add .github/webapps/webapps.json
+          git config --global user.email "dhanasekhar.podigiri@blueyonder.com"
+          git config --global user.name "dhanasekhar podigiri"
+          git commit .github/webapps/webapps.json -m "host name updated"
+          git push
         fi
     - name: check application
       run: |
