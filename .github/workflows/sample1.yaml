@@ -67,5 +67,4 @@ jobs:
         git commit .github/webapps/webapps.json -m "host name updated"
         git push
         fi
-        
-  
+      
