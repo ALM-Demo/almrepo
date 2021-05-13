@@ -14,9 +14,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: get url
       run: |
-        if [ ! -f .github/endpoint_urls/endpoints ]
+        if [ ! -f .github/hosturl/endpoints ]
         then
-          echo "file not exist"
+          mkdir -p .github/endpoint_urls/endpoints
         else
           echo "file ok"
         fi
