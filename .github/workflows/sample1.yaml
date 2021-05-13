@@ -45,6 +45,6 @@ jobs:
         fi
     - name: check application
       run: |
-        appout=`grep -rle alm-app-node-nodeappservice-dev .github/webapps/webapps.json`
+        grep -rle "alm-app-node-nodeappservice-dev" .github/webapps/webapps.json
         echo $appout
   
