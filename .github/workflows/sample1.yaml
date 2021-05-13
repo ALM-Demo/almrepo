@@ -43,7 +43,7 @@ jobs:
            }
         EOF
         cat .github/webapps/webapps.json
-    - name: push file
+    - name: push json
       run: |
         git add .github/webapps/webapps.json
         git config --global user.email "dhanasekhar.podigiri@blueyonder.com"
