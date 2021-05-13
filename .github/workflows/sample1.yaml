@@ -26,7 +26,7 @@ jobs:
         echo 'ENDPOINT_URL=$ENDPOINT' >> $GITHUB_ENV
 
     - name: output var
-      run:   echo ::set-output name=appou::"https://"$queryout
+      run:   echo ::set-output name=appou::"https://"$(az webapp config hostname list --webapp-name $AZURE_WEB_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --query [].name -o tsv)
       id:    appgrep
       shell: bash
     - name: ooo
