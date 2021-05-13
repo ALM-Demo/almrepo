@@ -14,9 +14,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: get url
       run: |
-        if [ ! -f .github/hosturl/endpoints ]
+        if [ ! -f .github/webapps/webapps.json ]
         then
-          mkdir -p .github/endpoint_urls/endpoints
-        else
-          echo "file ok"
+          mkdir -p .github/webapps/webapps.json
         fi
