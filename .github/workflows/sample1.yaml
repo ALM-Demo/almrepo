@@ -28,13 +28,5 @@ jobs:
         then
           mkdir -p .github/webapps
           touch .github/webapps/webapps.json
-          cat >.github/webapps/webapps.json <<EOF
-              {
-                "$AZURE_WEB_APP_NAME": {
-                   "resource_group": "$AZURE_DEPLOY_ENVIRONMENT",
-                   "webapp_endpoint": "$hosturl"
-                }
-              }
-          EOF
           cat .github/webapps/webapps.json
         fi
