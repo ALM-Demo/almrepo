@@ -66,4 +66,3 @@ jobs:
         git config --global user.name "dhanasekhar podigiri"
         git commit .github/webapps/webapps.json -m "host name updated"
         git push
-      
