@@ -22,8 +22,21 @@ jobs:
       
     - name: "add json"
       run: |
-        cat >>./config.json <<EOF
+        cat >./config.json first <<EOF
             {
+              "wifi": {
+                 "ssid": "$AZURE_DEPLOY_ENVIRONMENT",
+                  "pw":   "$AZURE_WEB_APP_TYPE"
+              }
+           }
+        EOF
+    - name: "add json next"
+      run: |
+        head -n-2 config.json
+    - name: "add json next"
+      run: |
+        cat >>./config.json <<EOF
+              },
               "wifi": {
                  "ssid": "$AZURE_DEPLOY_ENVIRONMENT",
                   "pw":   "$AZURE_WEB_APP_TYPE"
