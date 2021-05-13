@@ -33,7 +33,8 @@ jobs:
         EOF
     - name: "add json next"
       run: |
-        head -n-2 config.json
+        sed -i '$d' config.json | sed '$d' | sed '$d'
+        sed -i '$d' config.json | sed '$d' | sed '$d'
     - name: "add json next"
       run: |
         cat >>./config.json <<EOF
