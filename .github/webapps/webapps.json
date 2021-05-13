@@ -1,6 +1,0 @@
-    {
-      "alm-app-node-nodeappservice-dev": {
-         "resource_group": "rg-by-workflow-shared-dev-eus2-01",
-         "webapp_endpoint": ""https://"$(az webapp config hostname list --webapp-name $AZURE_WEB_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --query [].name -o tsv)"
-      }
-    }
