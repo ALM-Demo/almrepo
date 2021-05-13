@@ -45,5 +45,6 @@ jobs:
         fi
     - name: check application
       run: |
-        grep "alm-app-node-nodeappservice-dev" .github/webapps/webapps.json
+        ls -lrt
+        grep alm-app-node-nodeappservice-dev .github/webapps/webapps.json
   
