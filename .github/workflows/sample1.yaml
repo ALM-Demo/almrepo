@@ -37,7 +37,7 @@ jobs:
             {
               "$AZURE_WEB_APP_NAME": {
                  "resource_group": "$AZURE_DEPLOY_ENVIRONMENT",
-                 "webapp_endpoint": "${hosturl}"
+                 "webapp_endpoint": "$hosturl"
               }
            }
         EOF
