@@ -3,7 +3,7 @@
          "resource_group": "dev",
          "webapp_endpoint": ""
       },
-      "alm-app-node-nodeappservice-dev": {
+      "alm-app-node-nodeappservice-d": {
          "resource_group": "test",
          "webapp_endpoint": "test"
       }
