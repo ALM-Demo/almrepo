@@ -47,9 +47,25 @@ jobs:
       run:   echo ::set-output name=appout::$(grep "$AZURE_WEB_APP_NAME" .github/webapps/webapps.json | wc -l)
       id:    appgrep
       shell: bash
-    - name: Run Project B
+    - name: update the json
       if: steps.appgrep.outputs.appout == '0'
       run: |
-        echo "empty"
+        sed -i '$d' .github/webapps/webapps.json | sed '$d' | sed '$d'
+        sed -i '$d' .github/webapps/webapps.json | sed '$d' | sed '$d'
+        cat >.github/webapps/webapps.json <<EOF
+              },
+              "$AZURE_WEB_APP_NAME": {
+                 "resource_group": "test",
+                 "webapp_endpoint": "test"
+              }
+            }
+        EOF
+        cat .github/webapps/webapps.json
+        git add .github/webapps/webapps.json
+        git config --global user.email "dhanasekhar.podigiri@blueyonder.com"
+        git config --global user.name "dhanasekhar podigiri"
+        git commit .github/webapps/webapps.json -m "host name updated"
+        git push
+        fi
         
   
