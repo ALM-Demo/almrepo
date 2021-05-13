@@ -26,7 +26,7 @@ jobs:
         echo 'ENDPOINT_URL=$ENDPOINT' >> $GITHUB_ENV
 
     - name: output var
-      run:   echo ::set-output name=appou::"$ENDPOINT"
+      run:   echo ::set-output name=appou::$ENDPOINT
       id:    appgrep
       shell: bash
     - name: ooo
