@@ -29,7 +29,7 @@ jobs:
       run: |
         queryout=$(az webapp config hostname list --webapp-name $AZURE_WEB_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --query [].name -o tsv)
         echo $queryout
-        hosturl="https://"$queryout
+        export hosturl="https://"$queryout
         echo $hosturl
     - name: "add json"
       run: |
