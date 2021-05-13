@@ -23,9 +23,9 @@ jobs:
         ENDPOINT="https://"$queryout
     - name: Set env
       run: |
-        echo $ENDPOINT
+        echo "$ENDPOINT"
         echo "ENDPOINT_URL=$ENDPOINT" >> $GITHUB_ENV
-        echo $ENDPOINT_URL
+        echo "$ENDPOINT_URL"
     - name: check file exist or not
       run: |
         if [ ! -f .github/webapps/webapps.json ]
