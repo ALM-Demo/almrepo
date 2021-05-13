@@ -1,5 +1,5 @@
     {
-      "alm-app-node-nodeappservice-dev": {
+      "alm-app-node-nodeappservic": {
          "resource_group": "dev",
          "webapp_endpoint": ""
       }
