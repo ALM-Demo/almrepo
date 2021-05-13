@@ -19,13 +19,17 @@ jobs:
           mkdir -p .github/webapps/webapps.json
           echo "created new file"
         fi
-    - uses: "actions/setup-python@v2"
-      with:
-        python-version: "3.9"
-    - name: "Import package"
-      run: "python -c 'import json'"
       
-    - name: "Parse json"
+    - name: "add json"
       run: |
-        person_dict = json.loads(.github/webapps/webapps.json)
-        print( person_dict)
+        cat >>./config.json <<EOF
+            {
+              "wifi": {
+                 "ssid": "$AZURE_DEPLOY_ENVIRONMENT",
+                  "pw":   "$AZURE_WEB_APP_TYPE"
+              }
+           }
+        EOF
+    - name: "add json"
+      run: |
+        cat config.json
