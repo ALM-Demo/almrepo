@@ -24,8 +24,8 @@ jobs:
         echo $queryout
         echo $ENDPOINT
         echo "ENDPOINT_URL=$ENDPOINT" >> $GITHUB_ENV
-        echo "$ENDPOINT_URL"
-        echo "${{ env.ENDPOINT_URL }}"
+        echo $ENDPOINT_URL
+        echo ${{ env.ENDPOINT_URL }}
 
     - name: check file exist or not
       run: |
