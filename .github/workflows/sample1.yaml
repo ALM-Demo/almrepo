@@ -47,7 +47,7 @@ jobs:
       run:   echo ::set-output name=appout::$(grep "$AZURE_WEB_APP_NAME" .github/webapps/webapps.json | wc -l)
       id:    appgrep
       shell: bash
-    - name: update the json
+    - name: update endpoint with json
       if: steps.appgrep.outputs.appout == '0'
       run: |
         sed -i '$d' .github/webapps/webapps.json | sed '$d' | sed '$d'
