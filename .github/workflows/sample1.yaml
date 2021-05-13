@@ -44,7 +44,7 @@ jobs:
         git push
         fi
     - name: check application
-      run:   echo ::set-output name=appout::$(grep "alm-app-node-nodeappservic" .github/webapps/webapps.json | wc -l)
+      run:   echo ::set-output name=appout::$(grep "$AZURE_WEB_APP_NAME" .github/webapps/webapps.json | wc -l)
       id:    appgrep
       shell: bash
     - name: Run Project B
