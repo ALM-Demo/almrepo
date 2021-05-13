@@ -19,11 +19,11 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: endpoint url
       run: |
-        queryout=$(az webapp config hostname list --webapp-name $AZURE_WEB_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --query [].name -o tsv)
+        endpoint=$(az webapp config hostname list --webapp-name $AZURE_WEB_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --query [].name -o tsv)
         ENDPOINT_URL="https://"$queryout
     - name: Set env
       run: |
-        echo "endpointurl=$endpoint" >> $GITHUB_ENV
+        echo "ENDPOINT_URL=$endpoint" >> $GITHUB_ENV
     - name: check file exist or not
       run: |
         if [ ! -f .github/webapps/webapps.json ]
