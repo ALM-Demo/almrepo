@@ -2,7 +2,7 @@ name: dotnet
 'on':
   push:
     paths:
-    - .github/workflows/sample1.yaml
+    - .github/workflows/sample.yaml
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,41 +10,43 @@ jobs:
       AZURE_DEPLOY_ENVIRONMENT: dev
       AZURE_RESOURCE_GROUP: rg-by-workflow-shared-dev-eus2-01
       AZURE_WEB_APP_TYPE: java
+      AZURE_WEB_APP_NAME: alm-app-node-nodeappservice-dev
     steps:
     - uses: actions/checkout@v2
-    - name: get url
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: check file exist or not
       run: |
         if [ ! -f .github/webapps/webapps.json ]
         then
-          mkdir -p .github/webapps/webapps.json
+          mkdir -p .github/webapps
+          touch .github/webapps/webapps.json
           echo "created new file"
         fi
-      
+
+    - name: get url
+      run: |
+        queryout=$(az webapp config hostname list --webapp-name $AZURE_WEB_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --query [].name -o tsv)
+        echo $queryout
+        hosturl="https://"$queryout
+        echo $hosturl
     - name: "add json"
       run: |
-        touch config.json
-        cat >./config.json <<EOF
+        cat >.github/webapps/webapps.json <<EOF
             {
-              "wifi": {
-                 "ssid": "$AZURE_DEPLOY_ENVIRONMENT",
-                  "pw":   "$AZURE_WEB_APP_TYPE"
+              "$AZURE_WEB_APP_NAME": {
+                 "resource_group": "$AZURE_DEPLOY_ENVIRONMENT",
+                 "webapp_endpoint": "$hosturl"
               }
            }
         EOF
-    - name: "add json next"
+        cat .github/webapps/webapps.json
+    - name: push file
       run: |
-        sed -i '$d' config.json | sed '$d' | sed '$d'
-        sed -i '$d' config.json | sed '$d' | sed '$d'
-    - name: "add json next"
-      run: |
-        cat >>./config.json <<EOF
-              },
-              "wifi": {
-                 "ssid": "$AZURE_DEPLOY_ENVIRONMENT",
-                  "pw":   "$AZURE_WEB_APP_TYPE"
-              }
-           }
-        EOF
-    - name: "add json"
-      run: |
-        cat config.json
+        git add .github/webapps/webapps.json
+        git config --global user.email "dhanasekhar.podigiri@blueyonder.com"
+        git config --global user.name "dhanasekhar podigiri"
+        git commit .github/webapps/webapps.json -m "host name updated"
+        git push
