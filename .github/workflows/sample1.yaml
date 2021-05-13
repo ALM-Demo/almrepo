@@ -47,7 +47,7 @@ jobs:
       run:   echo ::set-output name=appout::$(grep "alm-app-node-nodeappservice-dev" .github/webapps/webapps.json | wc -l)
       id:    appgrep
       shell: bash 
-    - run: echo "There's a thing in my code!"
+    - run: |
       if: steps.appgrep.outputs.appout == '0'
         echo "hello"
         
