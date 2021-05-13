@@ -45,7 +45,7 @@ jobs:
         fi
     - name: check application
       run: |
-        appout=`grep -rle "$AZURE_WEB_APP_NAME" .github/webapps/webapps.json`
+        appout=`grep -rle $AZURE_WEB_APP_NAME .github/webapps/webapps.json`
         if [ -z "$appout" ]
         then
           sed -i '$d' .github/webapps/webapps.json | sed '$d' | sed '$d'
