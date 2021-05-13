@@ -55,7 +55,7 @@ jobs:
         cat >>.github/webapps/webapps.json <<EOF
               },
               "$AZURE_WEB_APP_NAME": {
-                 "resource_group": "test",
+                 "resource_group": "$AZURE_DEPLOY_ENVIRONMENT",
                  "webapp_endpoint": "test"
               }
             }
