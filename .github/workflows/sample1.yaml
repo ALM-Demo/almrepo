@@ -17,4 +17,5 @@ jobs:
         if [ ! -f .github/webapps/webapps.json ]
         then
           mkdir -p .github/webapps/webapps.json
+          echo "created new file"
         fi
