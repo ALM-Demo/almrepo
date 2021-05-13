@@ -20,9 +20,7 @@ jobs:
     - name: get endpoint url
       run: |
         queryout=$(az webapp config hostname list --webapp-name $AZURE_WEB_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --query [].name -o tsv)
-        echo $queryout
         export hosturl="https://"$queryout
-        echo $hosturl
     - name: check file exist or not
       run: |
         if [ ! -f .github/webapps/webapps.json ]
@@ -36,33 +34,11 @@ jobs:
                    "webapp_endpoint": "$hosturl"
                 }
               }
-          EOF
-          cat .github/webapps/webapps.json
-          git add .github/webapps/webapps.json
-          git config --global user.email "dhanasekhar.podigiri@blueyonder.com"
-          git config --global user.name "dhanasekhar podigiri"
-          git commit .github/webapps/webapps.json -m "host name updated"
-          git push
-        fi
-    - name: check application
-      run: |
-        appout=`grep -rle "$AZURE_WEB_APP_NAME" .github/webapps/webapps.json`
-        if [ -z "$appout" ]
-        then
-          sed -i '$d' .github/webapps/webapps.json | sed '$d' | sed '$d'
-          sed -i '$d' .github/webapps/webapps.json | sed '$d' | sed '$d'
-          cat >.github/webapps/webapps.json <<EOF
-                },
-                "$AZURE_WEB_APP_NAME": {
-                   "resource_group": "test",
-                   "webapp_endpoint": "test"
-                }
-              }
-          EOF
-          cat .github/webapps/webapps.json
-          git add .github/webapps/webapps.json
-          git config --global user.email "dhanasekhar.podigiri@blueyonder.com"
-          git config --global user.name "dhanasekhar podigiri"
-          git commit .github/webapps/webapps.json -m "host name updated"
-          git push
+           EOF
+           cat .github/webapps/webapps.json
+           git add .github/webapps/webapps.json
+           git config --global user.email "dhanasekhar.podigiri@blueyonder.com"
+           git config --global user.name "dhanasekhar podigiri"
+           git commit .github/webapps/webapps.json -m "host name updated"
+           git push
         fi
