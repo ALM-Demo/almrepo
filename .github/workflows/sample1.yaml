@@ -23,51 +23,15 @@ jobs:
         ENDPOINT="https://"$queryout
         echo $queryout
         echo $ENDPOINT
-        echo "ENDPOINT_URL=$ENDPOINT" >> $GITHUB_ENV
-        echo $ENDPOINT_URL
-        echo ${{ env.ENDPOINT_URL }}
+        echo 'ENDPOINT_URL=$ENDPOINT' >> $GITHUB_ENV
 
-    - name: check file exist or not
-      run: |
-        if [ ! -f .github/webapps/webapps.json ]
-        then
-          mkdir -p .github/webapps
-          touch .github/webapps/webapps.json
-        cat >.github/webapps/webapps.json <<EOF
-            {
-              "$AZURE_WEB_APP_NAME": {
-                 "resource_group": "$AZURE_RESOURCE_GROUP",
-                 "webapp_endpoint": "$ENDPOINT_URL"
-              }
-            }
-        EOF
-        cat .github/webapps/webapps.json
-        git add .github/webapps/webapps.json
-        git config --global user.email "dhanasekhar.podigiri@blueyonder.com"
-        git config --global user.name "dhanasekhar podigiri"
-        git commit .github/webapps/webapps.json -m "host name updated"
-        git push
-        fi
-    - name: check application
-      run:   echo ::set-output name=appout::$(grep "$AZURE_WEB_APP_NAME" .github/webapps/webapps.json | wc -l)
+    - name: output var
+      run:   echo ::set-output name=appou::$("$ENDPOINT")
       id:    appgrep
       shell: bash
-    - name: update endpoint with json
-      if: steps.appgrep.outputs.appout == '0'
+    - name: ooo
       run: |
-        sed -i '$d' .github/webapps/webapps.json | sed '$d' | sed '$d'
-        sed -i '$d' .github/webapps/webapps.json | sed '$d' | sed '$d'
-        cat >>.github/webapps/webapps.json <<EOF
-              },
-              "$AZURE_WEB_APP_NAME": {
-                 "resource_group": "$AZURE_RESOURCE_GROUP",
-                 "webapp_endpoint": "$ENDPOINT_URL"
-              }
-            }
-        EOF
-        cat .github/webapps/webapps.json
-        git add .github/webapps/webapps.json
-        git config --global user.email "dhanasekhar.podigiri@blueyonder.com"
-        git config --global user.name "dhanasekhar podigiri"
-        git commit .github/webapps/webapps.json -m "host name updated"
-        git push
+        echo "${{ steps.appgrep.outputs.appou }}"
+        echo $ENDPOINT_URL
+        echo ${{ env.ENDPOINT_URL }}
+        
