@@ -3,32 +3,20 @@ name: dotnet
   push:
     paths:
     - .github/workflows/sample1.yaml
-
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
       AZURE_DEPLOY_ENVIRONMENT: dev
+      AZURE_RESOURCE_GROUP: rg-by-workflow-shared-dev-eus2-01
+      AZURE_WEB_APP_TYPE: java
     steps:
     - uses: actions/checkout@v2
-    - name: Login to Azure
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: get url
       run: |
-        queryout=$(az webapp config hostname list --webapp-name alm-app-node-nodeappservice-dev --resource-group rg-by-workflow-shared-dev-eus2-01 --query [].name -o tsv)
-        echo $queryout
-        export hosturl="https://"$queryout
-        echo $hosturl
-        echo "HOST_URL=$(echo $hosturl)" >> $GITHUB_ENV
-        WORKING_VARIABLE=$(source .github/hosturl/endpoints; echo $dev_endpoint)
-        echo $WORKING_VARIABLE
-        if [ $hosturl != $WORKING_VARIABLE ]
+        if [ -e .github/endpoint_urls/endpoints ]
         then
-          echo $AZURE_DEPLOY_ENVIRONMENT
-          sed -i 's/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=.*/${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=${{ env.HOST_URL }}/' .github/hosturl/endpoints
-          cat .github/hosturl/endpoints
+          echo "ok"
         else
-          echo "strings are equal"
+          echo "not ok"
         fi
