@@ -22,7 +22,7 @@ jobs:
         queryout=$(az webapp config hostname list --webapp-name $AZURE_WEB_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --query [].name -o tsv)
         export hosturl="https://"$queryout
 
-    - name: check file exist or no
+    - name: check file exist or not
       run: |
         if [ ! -f .github/webapps/webapps.json ]
         then
