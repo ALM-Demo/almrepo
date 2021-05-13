@@ -19,3 +19,11 @@ jobs:
           mkdir -p .github/webapps/webapps.json
           echo "created new file"
         fi
+    - uses: "actions/setup-python@v2"
+      with:
+        python-version: "3.9"
+    - name: "Install dependencies"
+      run: |
+        set -xe
+        python -VV
+        python -m site
