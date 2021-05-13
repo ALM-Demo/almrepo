@@ -20,10 +20,11 @@ jobs:
     - name: endpoint url
       run: |
         queryout=$(az webapp config hostname list --webapp-name $AZURE_WEB_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --query [].name -o tsv)
-        $endpoint="https://"$queryout
+        endpoint="https://"$queryout
     - name: Set env
       run: |
-        echo "ENDPOINT_URL=$endpoint" >> $GITHUB_ENV
+        echo "ENDPOINT_URL=$endpoint" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
+        #echo "ENDPOINT_URL=$endpoint" >> $GITHUB_ENV
     - name: check file exist or not
       run: |
         if [ ! -f .github/webapps/webapps.json ]
