@@ -10,7 +10,8 @@ jobs:
       AZURE_DEPLOY_ENVIRONMENT: dev
       AZURE_RESOURCE_GROUP: rg-by-workflow-shared-dev-eus2-01
       AZURE_WEB_APP_TYPE: java
-      AZURE_WEB_APP_NAME: alm-app-node-nodeappservice-dev
+      #AZURE_WEB_APP_NAME: alm-app-node-nodeappservice-dev
+      AZURE_WEB_APP_NAME: alm-app-node-nodeappservic
     steps:
     - uses: actions/checkout@v2
     - name: Login to Azure
