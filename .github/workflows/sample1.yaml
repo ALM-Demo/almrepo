@@ -34,7 +34,7 @@ jobs:
             {
               "$AZURE_WEB_APP_NAME": {
                  "resource_group": "$AZURE_RESOURCE_GROUP",
-                 "webapp_endpoint": "$ENDPOINT_URL"
+                 "webapp_endpoint": "${{ env.ENDPOINT_URL }}"
               }
             }
         EOF
