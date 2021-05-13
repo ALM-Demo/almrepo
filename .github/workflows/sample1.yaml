@@ -2,7 +2,7 @@ name: dotnet
 'on':
   push:
     paths:
-    - .github/workflows/sample.yaml
+    - .github/workflows/sample1.yaml
 jobs:
   build:
     runs-on: ubuntu-latest
