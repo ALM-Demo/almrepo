@@ -48,7 +48,7 @@ jobs:
       id:    appgrep
       shell: bash 
     - run: echo "There's a thing in my code!"
-      if:  steps.appgrep.outputs.appout == '0'
-           echo "hello"
+      if: steps.appgrep.outputs.appout == '0'
+        echo "hello"
         
   
