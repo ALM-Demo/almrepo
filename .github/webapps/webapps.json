@@ -2,5 +2,9 @@
       "alm-app-node-nodeappservic": {
          "resource_group": "dev",
          "webapp_endpoint": ""
+      },
+      "alm-app-node-nodeappservice-dev": {
+         "resource_group": "test",
+         "webapp_endpoint": "test"
       }
     }
