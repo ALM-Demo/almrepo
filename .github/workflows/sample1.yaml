@@ -46,9 +46,10 @@ jobs:
     - name: check application
       run:   echo ::set-output name=appout::$(grep "alm-app-node-nodeappservice-dev" .github/webapps/webapps.json | wc -l)
       id:    appgrep
-      shell: bash 
-    - run: |
+      shell: bash
+    - name: Run Project B
       if: steps.appgrep.outputs.appout == '0'
-        echo "hello"
+      run: |
+        echo "empty"
         
   
