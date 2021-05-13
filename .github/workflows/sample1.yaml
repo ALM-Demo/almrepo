@@ -22,6 +22,7 @@ jobs:
       
     - name: "add json"
       run: |
+        touch config.json
         cat >./config.json first <<EOF
             {
               "wifi": {
