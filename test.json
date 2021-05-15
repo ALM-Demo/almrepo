@@ -1,6 +1,5 @@
-    {
-      "alm-app-node-nodeappserv": {
-         "resource_group": "rg-by-workflow-shared-dev-eus2-01",
-         "webapp_endpoint": "https://alm-app-node-nodeappservice-dev.azurewebsites.net"
-      }
-    }
+{
+    "fruit": "Apple",
+    "size": "Large",
+    "color": "Red"
+}
