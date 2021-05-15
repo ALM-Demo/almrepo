@@ -1,4 +1,4 @@
-name: dotnet
+name: json
 'on':
   push:
     paths:
@@ -15,9 +15,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: check json test
       run: 
-        out = $(jq '."${{ env.AZURE_WEB_APP_NAME }}"'.webapp_endpoint .github/webapps/webapps.json)     
-        
+        jq '."${{ env.AZURE_WEB_APP_NAME }}"'.webapp_endpoint .github/webapps/webapps.json
     - name: check json test1
       run: 
         jq '."${{ env.AZURE_WEB_APP_NAME }}".webapp_endpoint="newendpt"' .github/webapps/webapps.json
-        echo $out
