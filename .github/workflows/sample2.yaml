@@ -1,0 +1,19 @@
+name: dotnet
+'on':
+  push:
+    paths:
+    - .github/workflows/sample2.yaml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      AZURE_DEPLOY_ENVIRONMENT: dev
+      AZURE_RESOURCE_GROUP: rg-by-workflow-shared-dev-eus2-01
+      AZURE_WEB_APP_TYPE: java
+      AZURE_WEB_APP_NAME: alm-app-node-nodeappservice-dev
+    steps:
+    - uses: actions/checkout@v2
+    - name: check file exist or not
+      run: 
+        sudo apt-get install jq
+        jq .alm-app-node-nodeappserv .github/webapps/webapps.json
