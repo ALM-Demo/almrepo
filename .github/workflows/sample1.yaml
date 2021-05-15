@@ -21,7 +21,7 @@ jobs:
       run: |
         echo "ENDPOINT_URL=https://$(az webapp config hostname list --webapp-name $AZURE_WEB_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --query [].name -o tsv)" >> $GITHUB_ENV
 
-    - name: check file exist or not
+    - name: check file exist or not test
       run: |
         if [ ! -f .github/webapps/webapps.json ]
         then
