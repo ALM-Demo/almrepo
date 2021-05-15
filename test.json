@@ -1,5 +1,5 @@
 {
-   "app1":{
+   "alm-app-node-nodeappserv":{
       "resource_group":"rg",
       "webapp_endpoint":"we"
    }
