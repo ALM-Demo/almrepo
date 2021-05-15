@@ -16,5 +16,5 @@ jobs:
     - name: check json test
       run: 
         out=$(jq '."alm-app-node-nodeappservice-dev"'.webapp_endpoint .github/webapps/webapps.json)      
-    - name: check json test
+    - name: check json test1
       run: echo $out
