@@ -17,4 +17,3 @@ jobs:
       run: 
         jq '."alm-app-node-nodeappservice-dev"'.webapp_endpoint .github/webapps/webapps.json
         jq '."alm-app-node-nodeappservice-dev".webapp_endpoint="newendpt"' .github/webapps/webapps.json
-        cat .github/webapps/webapps.json
