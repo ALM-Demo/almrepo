@@ -16,4 +16,4 @@ jobs:
     - name: check file exist or not
       run: 
         sudo apt-get install jq
-        jq .alm-app-node-nodeappserv .github/webapps/webapps.json
+        jq . .github/webapps/webapps.json
