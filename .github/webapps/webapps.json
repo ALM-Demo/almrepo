@@ -1,6 +1,6 @@
 {
    "alm-app-node-nodeappserv":{
-      "resource_group":"rg",
+      "resource_group":"rg-dd",
       "webapp_endpoint":"we"
    }
 }
