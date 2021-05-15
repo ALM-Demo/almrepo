@@ -15,4 +15,4 @@ jobs:
     - uses: actions/checkout@v2
     - name: check file exist or not
       run: 
-        jq '."alm-app-node-nodeappserv".resource_group' test.json
+        jq '."alm-app-node-nodeappserv"'.resource_group .github/webapps/webapps.json
