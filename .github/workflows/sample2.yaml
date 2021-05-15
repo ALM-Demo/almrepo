@@ -16,6 +16,3 @@ jobs:
     - name: check json test
       run: 
         jq '."alm-app-node-nodeappservice-dev"'.webapp_endpoint .github/webapps/webapps.json
-        webappendpoint=$( jq '."alm-app-node-nodeappservice-dev"'.webapp_endpoint .github/webapps/webapps.json )
-        echo $webappendpoint
-
