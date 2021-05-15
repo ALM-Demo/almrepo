@@ -15,6 +15,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: check json test
       run: 
-        out=$(jq '."alm-app-node-nodeappservice-dev"'.webapp_endpoint .github/webapps/webapps.json) <<EOF
+        jq '."alm-app-node-nodeappservice-dev"'.webapp_endpoint .github/webapps/webapps.json out
         echo $out
 
