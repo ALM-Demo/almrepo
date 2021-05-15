@@ -15,4 +15,4 @@ jobs:
     - uses: actions/checkout@v2
     - name: check json tes
       run: 
-        jq '."alm-app-node-nodeappserv"'.resource_group .github/webapps/webapps.json
+        jq '."alm-app-node-nodeappservice-dev"'.webapp_endpoint .github/webapps/webapps.json
