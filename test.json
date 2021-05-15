@@ -1,6 +1,10 @@
-{   
-    "alm-app-node-nodeappserv": {
-      "resource_group": "rg-by-workflow-shared-dev-eus2-01",
-      "webapp_endpoint": "https://alm-app-node-nodeappservice-dev.azurewebsites.net"
-    }
+{
+   "app1":{
+      "resource_group":"rg",
+      "webapp_endpoint":"we"
+   },
+   "app2":{
+      "resource_group":"rg",
+      "webapp_endpoint":"we"
+   }
 }
