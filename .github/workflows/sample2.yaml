@@ -13,6 +13,6 @@ jobs:
       AZURE_WEB_APP_NAME: alm-app-node-nodeappservice-dev
     steps:
     - uses: actions/checkout@v2
-    - name: check json t
+    - name: check json te
       run: 
         jq '."alm-app-node-nodeappserv"'.resource_group .github/webapps/webapps.json
