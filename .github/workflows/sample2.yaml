@@ -15,10 +15,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: check json test
       run: |
-        echo "$(jq '."${{ env.AZURE_WEB_APP_NAME }}"'.webapp_endpoint .github/webapps/webapps.json)" >> temp.txt
-        cat temp.txt
-        tempout=`cat temp.txt`
-        echo $tempout
+        echo "$(jq '."${{ env.AZURE_WEB_APP_NAME }}"'.webapp_endpoint .github/webapps/webapps.json)" >> temp
+        echo $temp
         jq '."${{ env.AZURE_WEB_APP_NAME }}".webapp_endpoint="newendpt"' .github/webapps/webapps.json
 
         
