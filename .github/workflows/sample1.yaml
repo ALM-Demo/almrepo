@@ -75,7 +75,6 @@ jobs:
         if [[ "$temp" != "$ENDPOINT_URL" ]]
         then
         echo "inside if"
-        apt-get install moreutils
         jq '."${{ env.AZURE_WEB_APP_NAME }}".webapp_endpoint="${{ env.ENDPOINT_URL }}"' .github/webapps/webapps.json | sponge .github/webapps/webapps.json
         cat .github/webapps/webapps.json
         fi
