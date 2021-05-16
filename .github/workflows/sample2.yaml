@@ -14,13 +14,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: check json test
-      run: 
+      run: |
         echo "$(jq '."${{ env.AZURE_WEB_APP_NAME }}"'.webapp_endpoint .github/webapps/webapps.json)" >> temp.txt
-    - name: out
-      run: 
         cat temp.txt
         tempout=`cat temp.txt`
         echo $tempout
-    - name: check json test1
-      run: 
         jq '."${{ env.AZURE_WEB_APP_NAME }}".webapp_endpoint="newendpt"' .github/webapps/webapps.json
+
+        
