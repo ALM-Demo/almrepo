@@ -75,6 +75,6 @@ jobs:
         if [[ "$temp" != "$ENDPOINT_URL" ]]
         then
         echo "inside if"
-        jq '."${{ env.AZURE_WEB_APP_NAME }}".webapp_endpoint="newendpt"' .github/webapps/webapps.json
+        jq '."${{ env.AZURE_WEB_APP_NAME }}".webapp_endpoint=$ENDPOINT_URL' .github/webapps/webapps.json
         cat .github/webapps/webapps.json
         fi
