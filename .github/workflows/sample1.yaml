@@ -69,6 +69,7 @@ jobs:
       run: |
         echo "$(jq '."${{ env.AZURE_WEB_APP_NAME }}"'.webapp_endpoint .github/webapps/webapps.json)" >> temp.txt
         temp=`cat temp.txt`
+        temp=`echo $temp | sed "s/\"//g"`
         echo $temp
         echo $ENDPOINT_URL
         if [[ "$temp" != "$ENDPOINT_URL" ]]
