@@ -16,7 +16,9 @@ jobs:
     - name: check json test
       run: 
         out=`echo "$(jq '."${{ env.AZURE_WEB_APP_NAME }}"'.webapp_endpoint .github/webapps/webapps.json)"`
-    - name: check json test1
+    - name: out
       run: 
         echo $out
+    - name: check json test1
+      run: 
         jq '."${{ env.AZURE_WEB_APP_NAME }}".webapp_endpoint="newendpt"' .github/webapps/webapps.json
