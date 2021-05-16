@@ -65,4 +65,14 @@ jobs:
         git config --global user.name "dhanasekhar podigiri"
         git commit .github/webapps/webapps.json -m "host name updated"
         git push
-      
+    - name: check 
+      run: |
+        echo "$(jq '."${{ env.AZURE_WEB_APP_NAME }}"'.webapp_endpoint .github/webapps/webapps.json)" >> temp.txt
+        temp=`cat temp.txt`
+        echo $temp
+        echo $ENDPOINT_URL
+        if [[ "$temp" != "$ENDPOINT_URL" ]]
+        then
+        jq '."${{ env.AZURE_WEB_APP_NAME }}".webapp_endpoint="newendpt"' .github/webapps/webapps.json
+        cat .github/webapps/webapps.json
+        fi
