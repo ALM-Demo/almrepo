@@ -5,6 +5,6 @@
   },
   "alm-app-node-nodeappservice-dev": {
     "resource_group": "rg-by-workflow-shared-dev-eus2-01",
-    "webapp_endpoint": 
+    "webapp_endpoint": "dd"
   }
 }
