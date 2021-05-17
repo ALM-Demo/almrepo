@@ -17,11 +17,11 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - name: endpoint url
+    - name: get appservice endpoint url
       run: |
         echo "ENDPOINT_URL=https://$(az webapp config hostname list --webapp-name $AZURE_WEB_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --query [].name -o tsv)" >> $GITHUB_ENV
 
-    - name: check file exist or not tes
+    - name: create json and add element to json
       run: |
         if [ ! -f .github/webapps/webapps.json ]
         then
@@ -42,11 +42,11 @@ jobs:
         git commit .github/webapps/webapps.json -m "host name updated"
         git push
         fi
-    - name: check application
+    - name: check application availabiltiy in json
       run:   echo ::set-output name=appout::$(grep "$AZURE_WEB_APP_NAME" .github/webapps/webapps.json | wc -l)
       id:    appgrep
       shell: bash
-    - name: update endpoint with json
+    - name: add endpoint with json
       if: steps.appgrep.outputs.appout == '0'
       run: |
         sed -i '$d' .github/webapps/webapps.json | sed '$d' | sed '$d'
@@ -59,13 +59,12 @@ jobs:
            }
         }
         EOF
-        cat .github/webapps/webapps.json
         git add .github/webapps/webapps.json
         git config --global user.email "dhanasekhar.podigiri@blueyonder.com"
         git config --global user.name "dhanasekhar podigiri"
         git commit .github/webapps/webapps.json -m "host name updated"
         git push
-    - name: check 
+    - name: compare and update application name in json 
       run: |
         echo "$(jq '."${{ env.AZURE_WEB_APP_NAME }}"'.webapp_endpoint .github/webapps/webapps.json)" >> temp.txt
         temp=`cat temp.txt`
@@ -83,4 +82,3 @@ jobs:
         git commit .github/webapps/webapps.json -m "host name updated"
         git push
         fi
-  
