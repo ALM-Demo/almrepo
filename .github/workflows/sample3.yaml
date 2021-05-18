@@ -1,4 +1,4 @@
-name: stest f
+name: stest fi
 'on':
   push:
     paths:
@@ -30,7 +30,7 @@ jobs:
           if [ ! -f .github/webapps/webapps.json ];then
             mkdir -p .github/webapps
             touch .github/webapps/webapps.json
-            jq --arg webapp_name $AZURE_WEB_APP_NAME --arg resource_group $AZURE_RESOURCE_GROUP --arg webapp_url "https://$WEB_APP_URL" '. + {($webapp_name): {"resource_group": $resource_group, "webapp_url": $webapp_url}}' < .github/webapps/webapps.json > tmp_webapps.json && mv tmp_webapps.json .github/webapps/webapps.json
+            jq -n --arg webapp_name $AZURE_WEB_APP_NAME --arg resource_group $AZURE_RESOURCE_GROUP --arg webapp_url "https://$WEB_APP_URL" '. + {($webapp_name): {"resource_group": $resource_group, "webapp_url": $webapp_url}}' < .github/webapps/webapps.json > tmp_webapps.json && mv tmp_webapps.json .github/webapps/webapps.json
           else        
            jq --arg webapp_name $AZURE_WEB_APP_NAME --arg resource_group $AZURE_RESOURCE_GROUP --arg webapp_url "https://$WEB_APP_URL" '. + {($webapp_name): {"resource_group": $resource_group, "webapp_url": $webapp_url}}' < .github/webapps/webapps.json > tmp_webapps.json && mv tmp_webapps.json .github/webapps/webapps.json
           fi  
