@@ -40,6 +40,6 @@ jobs:
         if [ -z "$(git status --porcelain)" ]; then 
           echo "Nothing to commit "
         else 
-          git commit -m "update webapp endpoin"
+          git commit -m "update webapp endpoi"
           git push origin ${BRANCH}
         fi
