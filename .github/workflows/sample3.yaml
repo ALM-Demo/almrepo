@@ -31,7 +31,7 @@ jobs:
           touch .github/webapps/webapps.json
           touch .github/webapps/config.json
         fi
-        jq --arg v "$PRJNAME" '.dev.projects[$v]' config.json
+        jq --arg v "$PRJNAME" '.dev.projects[$v]' .github/webapps/config.json
         export WEB_APP_URL=`az webapp config hostname list --webapp-name $AZURE_WEB_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --query [].name -o tsv`
         jq --arg webapp_name $AZURE_WEB_APP_NAME --arg resource_group $AZURE_RESOURCE_GROUP --arg webapp_url "https://$WEB_APP_URL" '. + {($webapp_name): {"resource_group": $resource_group, "webapp_url": $webapp_url}}' < .github/webapps/webapps.json > tmp_webapps.json && mv tmp_webapps.json .github/webapps/webapps.json
         git config --global user.email "siva.medapati@blueyonder.com"
