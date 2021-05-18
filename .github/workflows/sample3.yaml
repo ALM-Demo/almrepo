@@ -36,10 +36,10 @@ jobs:
         git config --global user.name "Siva Medapati"
         git config pull.rebase false
         git pull origin ${BRANCH}
-        git add -f .github/webapps/webapps.json .github/webapps/config.json
+        git add -f .github/webapps/webapps.json
         if [ -z "$(git status --porcelain)" ]; then 
           echo "Nothing to commit "
         else 
-          git commit -m "update webapp endpo"
+          git commit -m "update webapp endp"
           git push origin ${BRANCH}
         fi
