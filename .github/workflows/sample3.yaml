@@ -2,7 +2,7 @@ name: stest
 'on':
   push:
     paths:
-    - .github/workflows/sample3yaml
+    - .github/workflows/sample3.yaml
 jobs:
   create-web-app:      
     runs-on: ubuntu-latest
