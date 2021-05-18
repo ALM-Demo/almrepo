@@ -37,7 +37,7 @@ jobs:
         git pull origin ${BRANCH}
         git add -f .github/webapps/webapps.json
         if [ -z "$(git status --porcelain)" ]; then 
-          echo "Nothing to commit"
+          echo "Nothing to commit "
         else 
           git commit -m "update webapp endpoint"
           git push origin ${BRANCH}
