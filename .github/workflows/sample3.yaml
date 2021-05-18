@@ -26,20 +26,22 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: Update Azure Web App Endpoints File
       run: |
-        if [ ! -f .github/webapps/webapps.json ];then
-          mkdir -p .github/webapps
-          touch .github/webapps/webapps.json
-        fi
         export WEB_APP_URL=`az webapp config hostname list --webapp-name $AZURE_WEB_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --query [].name -o tsv`
-        jq --arg webapp_name $AZURE_WEB_APP_NAME --arg resource_group $AZURE_RESOURCE_GROUP --arg webapp_url "https://$WEB_APP_URL" '. + {($webapp_name): {"resource_group": $resource_group, "webapp_url": $webapp_url}}' < .github/webapps/webapps.json > tmp_webapps.json && mv tmp_webapps.json .github/webapps/webapps.json
+          if [ ! -f .github/webapps/webapps.json ];then
+            mkdir -p .github/webapps
+            touch .github/webapps/webapps.json
+		        jq --arg webapp_name $AZURE_WEB_APP_NAME --arg resource_group $AZURE_RESOURCE_GROUP --arg webapp_url "https://$WEB_APP_URL" '. + {($webapp_name): {"resource_group": $resource_group, "webapp_url": $webapp_url}}' < .github/webapps/webapps.json > tmp_webapps.json && mv tmp_webapps.json .github/webapps/webapps.json
+          else        
+           jq --arg webapp_name $AZURE_WEB_APP_NAME --arg resource_group $AZURE_RESOURCE_GROUP --arg webapp_url "https://$WEB_APP_URL" '. + {($webapp_name): {"resource_group": $resource_group, "webapp_url": $webapp_url}}' < .github/webapps/webapps.json > tmp_webapps.json && mv tmp_webapps.json .github/webapps/webapps.json
+	        fi  
         git config --global user.email "siva.medapati@blueyonder.com"
         git config --global user.name "Siva Medapati"
         git config pull.rebase false
         git pull origin ${BRANCH}
         git add -f .github/webapps/webapps.json
         if [ -z "$(git status --porcelain)" ]; then 
-          echo "Nothing to commit y "
+          echo "Nothing to commit"
         else 
-          git commit -m "update webapp endpo"
+          git commit -m "update webapp endpoint"
           git push origin ${BRANCH}
         fi
