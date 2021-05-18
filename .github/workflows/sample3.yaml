@@ -1,4 +1,4 @@
-name: stest fir
+name: stest firs
 'on':
   push:
     paths:
