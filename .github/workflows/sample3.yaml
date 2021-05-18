@@ -1,4 +1,4 @@
-name: stest
+name: stest f
 'on':
   push:
     paths:
