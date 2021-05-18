@@ -1,6 +1,6 @@
 {
-  "alm-app-java-javaappservice-de11v": {
-    "resource_group": "rg-by-workflow-sharssed-dev-eus2-01",
+  "alm-app-java-javaappservice-dev": {
+    "resource_group": "rg-by-workflow-shared-dev-eus2-01",
     "webapp_url": "https://alm-app-java-javaappservice-dev.azurewebsites.net"
   }
 }
