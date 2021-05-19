@@ -17,14 +17,16 @@ jobs:
       STRATOSPHERE_API_URL : https://api.live.external.byp.ai
       PROJECT_NAME: alm
       REGION: us
-      AZURE_WEB_APP_NAME: alm-app-java
+      AZURE_WEB_APP_NAME: alm-app-java-a
       owner_group_name : grp-sec-saas-sub-lplat-test-reader
     steps:
     - uses: actions/checkout@v2
     - name: invoke curl
       run: |
         curl -H "accept: application/json" \
-        -H "Authorization: Bearer ${{ secrets.ST_TOKEN }}" \
-        --request PUT \
-        --data '{"spec": {"enabled": True,"image": "almacrdev.azurecr.io/javaappservice-dev","network": {"access": "external"},"authentication": {"enabled": True},}}' \
-        "${{ env.STRATOSPHERE_API_URL }}/geographies/${{ env.REGION }}/projects/${{ env.PROJECT_NAME }}/resources/container-web/${{ env.AZURE_WEB_APP_NAME }}"
+          -H "Authorization: Bearer ${{ secrets.ST_TOKEN }}" \
+          --request PUT \
+          --data '{"spec": {"enabled": True,"image": "almacrdev.azurecr.io/javaappservice-dev","network": {"access": "external"},"authentication": {"enabled": True},}}' \
+          "${{ env.STRATOSPHERE_API_URL }}/geographies/${{ env.REGION }}/projects/${{ env.PROJECT_NAME }}/resources/container-web/${{ env.AZURE_WEB_APP_NAME }}" \
+        | jq .
+        
