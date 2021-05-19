@@ -17,7 +17,7 @@ jobs:
       STRATOSPHERE_API_URL : https://api.live.external.byp.ai
       PROJECT_NAME: alm
       REGION: us
-      AZURE_WEB_APP_NAME: alm-app-java-a
+      AZURE_WEB_APP_NAME: alm-app-java
       OWNER_GROUP_NAME : 'grp-sec-saas-sub-lplat-test-reader'
     steps:
     - uses: actions/checkout@v2
@@ -28,4 +28,4 @@ jobs:
           -H "Authorization: Bearer ${{ secrets.ST_TOKEN }}" \
           --request PUT \
           --data '{"spec": {"enabled": true,"image": \"${{ env.CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ env.AZURE_WEB_APP_IMAGE_NAME }}\","network": {"access": "external"},"authentication": {"enabled": true}}}' \
-          ${{ env.STRATOSPHERE_API_URL }}/geographies/${{ env.REGION }}/projects/${{ env.PROJECT_NAME }}/resources/container-web/${{ env.CONTAINER_REGISTRY_NAME }}
+          ${{ env.STRATOSPHERE_API_URL }}/geographies/${{ env.REGION }}/projects/${{ env.PROJECT_NAME }}/resources/container-web/${{ env.AZURE_WEB_APP_NAME }}
