@@ -29,7 +29,7 @@ jobs:
           --request PUT \
           --data '{"spec": {
                      "container_registry": {
-                     "access_policies": [{"name": /${{ env.OWNER_GROUP_NAME }}, "type": "group"}]}
+                     "access_policies": [{"name": ${{ env.OWNER_GROUP_NAME }}, "type": "group"}]}
                      }
                   }' \
           ${{ env.STRATOSPHERE_API_URL }}/geographies/${{ env.REGION }}/projects/${{ env.PROJECT_NAME }}/resources/azure-container-registry/${{ env.CONTAINER_REGISTRY_NAME }}
