@@ -29,8 +29,7 @@ jobs:
           --request PUT \
           --data '{"spec": {
                      "container_registry": {
-                     "access_policies": [{"name": "grp-sec-saas-sub-lplat-test-reader", "type": "group"}]
+                     "access_policies": [{"name": "grp-sec-saas-sub-lplat-test-reader", "type": "group"}]}
                      }
-                    }
-                 }' \
+                  }' \
           ${{ env.STRATOSPHERE_API_URL }}/geographies/${{ env.REGION }}/projects/${{ env.PROJECT_NAME }}/resources/container-web/${{ env.CONTAINER_REGISTRY_NAME }}
