@@ -31,3 +31,4 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests
         python -c "import requests"
+        requests.put(f"https://api.live.external.byp.ai/geographies/us/projects/alm/resources/container-web/alm-dev",json=container_web_in,headers=headers,)
