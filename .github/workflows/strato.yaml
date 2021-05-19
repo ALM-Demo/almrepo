@@ -27,6 +27,6 @@ jobs:
           -H "Authorization: Bearer ${{ secrets.ST_TOKEN }}" \
           --request PUT \
           --data '{"spec": {"enabled": True,"image": "almacrdev.azurecr.io/javaappservice-dev","network": {"access": "external"},"authentication": {"enabled": True},}}' \
-          ${{ env.STRATOSPHERE_API_URL }}/geographies/${{ env.REGION }}/projects/${{ env.PROJECT_NAME }}/resources/container-web/${{ env.AZURE_WEB_APP_NAME }} \
+          '${{ env.STRATOSPHERE_API_URL }}/geographies/${{ env.REGION }}/projects/${{ env.PROJECT_NAME }}/resources/container-web/${{ env.AZURE_WEB_APP_NAME }}' \
         | jq .
         
