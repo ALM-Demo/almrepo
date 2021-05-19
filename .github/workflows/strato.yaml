@@ -7,9 +7,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      AZURE_DEPLOY_ENVIRONMENT: dev
-      AZURE_RESOURCE_GROUP: rg-by-workflow-shared-dev-eus2-01
+      STRATOSPHERE_WEB_APP_NAME_PREFIX : alm-app
       AZURE_WEB_APP_TYPE: java
-      AZURE_WEB_APP_NAME: alm-app-node-nodeappservice-dev
+      GITHUB_REPO_NAME: javaappservice
+      STRATOSPHERE_DEPLOY_ENVIRONMENT: dev
+      AZURE_ACR_NAME_PREFIX: almacr
+      CONTAINER_REGISTRY_NAME: almacrdev
+      AZURE_WEB_APP_IMAGE_NAME: javaappservice-dev
+      STRATOSPHERE_API_URL : https://api.live.external.byp.ai
+      PROJECT_NAME: alm
+      REGION: us
+      AZURE_WEB_APP_NAME: alm-ap-devp
+      owner_group_name : grp-sec-saas-sub-lplat-test-reader
     steps:
     - uses: actions/checkout@v2
