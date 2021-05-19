@@ -19,9 +19,10 @@ jobs:
       REGION: us
       AZURE_WEB_APP_NAME: alm-app-java
       owner_group_name : grp-sec-saas-sub-lplat-test-reader
-      ST_TOKEN: ${{ secrets.ST_TOKEN }}
     steps:
     - uses: actions/checkout@v2
     - name: invoke curl
       run: |
-        curl -X GET "${{ env.STRATOSPHERE_API_URL }}/geographies/${{ env.REGION }}/projects/${{ env.PROJECT_NAME }}/resources/container-web/${{ env.AZURE_WEB_APP_NAME }}" -H  "accept: application/json" -H "Authorization: Bearer ${{ secrets.ST_TOKEN }}"
+        curl -X GET "${{ env.STRATOSPHERE_API_URL }}/geographies/${{ env.REGION }}/projects/${{ env.PROJECT_NAME }}/resources/container-web/${{ env.AZURE_WEB_APP_NAME }}" \
+        -H  "accept: application/json" \
+        -H "Authorization: Bearer ${{ secrets.ST_TOKEN }}"
