@@ -23,6 +23,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: invoke curl
       run: |
-        curl -X GET "${{ env.STRATOSPHERE_API_URL }}/geographies/${{ env.REGION }}/projects/${{ env.PROJECT_NAME }}/resources/container-web/${{ env.AZURE_WEB_APP_NAME }}" \
-        -H  "accept: application/json" \
-        -H "Authorization: Bearer ${{ secrets.ST_TOKEN }}"
+        curl -H "accept: application/json" \
+        -H "Authorization: Bearer ${{ secrets.ST_TOKEN }}" \
+        --request PUT \
+        --data '{"spec": {"enabled": True,"image": "almacrdev.azurecr.io/javaappservice-dev","network": {"access": "external"},"authentication": {"enabled": True},}}' \
+        "${{ env.STRATOSPHERE_API_URL }}/geographies/${{ env.REGION }}/projects/${{ env.PROJECT_NAME }}/resources/container-web/${{ env.AZURE_WEB_APP_NAME }}"
