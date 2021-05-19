@@ -22,10 +22,10 @@ jobs:
       PYTHON_VERSION: '3.8'
     steps:
     - uses: actions/checkout@v2
-    - name: Setup Python ${<!-- -->{ env.PYTHON_VERSION }} Environment
+    - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: ${<!-- -->{ env.PYTHON_VERSION }}
-    - name: 'Install dependencies'
+        python-version: '3.x'
+    - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
