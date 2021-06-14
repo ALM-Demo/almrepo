@@ -16,7 +16,7 @@ jobs:
     - name: get url
       run: |
         out=$
-        if [[ -n $(echo $(az webapp list --query "[?name=='alm-app-java-devlopmentpoc-dev']") | sed 's/\(\[\|\]\)//g') ]]; then
+        if [[ -n $(echo $(az webapp list --query "[?name=='alm-app-java-devlopmentpoc-de']") | sed 's/\(\[\|\]\)//g') ]]; then
         echo "non empty"
         else
         echo "empty"
