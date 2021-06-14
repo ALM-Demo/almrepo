@@ -20,5 +20,5 @@ jobs:
         echo "non empty"
         else
         echo "empty"
-        exit 0
+        exit 1
         fi
