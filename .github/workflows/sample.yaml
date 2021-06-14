@@ -19,6 +19,6 @@ jobs:
         if [[ -n $(echo $(az webapp list --query "[?name=='$AZURE_WEB_APP_NAME']") | sed 's/\(\[\|\]\)//g') ]]; then
         echo "non empty"
         else
-        echo "empty"
+        echo "$AZURE_WEB_APP_NAME not found"
         exit 1
         fi
