@@ -15,10 +15,8 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: get url
       run: |
-        out=$(az webapp list --query "[?name=='alm-app-java-devlopmentpoc-de']")
-        echo ${#out}
-        echo ${#out[@]}
-        if [ ${#out[@]} -ne 0 ]; then
+        out=$(az webapp list --query "[?name=='alm-app-java-devlopmentpoc-dev']")
+        if [[ -n $out ]]; then
         echo "non empty"
         else
         echo "empty"
