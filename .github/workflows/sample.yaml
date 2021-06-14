@@ -22,4 +22,3 @@ jobs:
         else
         echo "empty"
         fi
-        echo "empty"
