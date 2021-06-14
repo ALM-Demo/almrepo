@@ -17,4 +17,4 @@ jobs:
       run: |
         output=$(az webapp delete --name alm-app-java-almjavapoc --resource-group rg-by-workflow-shared-dev-eus2-01)
         echo $output
-        echo ::set-env name=FOO::$(az webapp delete --name alm-app-java-almjavapoc --resource-group rg-by-workflow-shared-dev-eus2-01)
+        echo "action_state=$(az webapp delete --name alm-app-java-almjavapoc --resource-group rg-by-workflow-shared-dev-eus2-01)" >> $GITHUB_ENV
