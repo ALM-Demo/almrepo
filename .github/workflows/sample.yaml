@@ -16,4 +16,10 @@ jobs:
     - name: get url
       run: |
         out=$(az webapp list --query "[?name=='alm-app-java-devlopmentpoc-de']")
-        echo $out
+        if [[ ! -z "$out" ]];
+        then
+        echo "non empty"
+        else
+        echo "empty"
+        fi
+        echo "empty"
