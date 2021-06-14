@@ -16,22 +16,4 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: get url
       run: |
-        queryout=$(az webapp config hostname list --webapp-name alm-app-node-nodeappservice-dev --resource-group rg-by-workflow-shared-dev-eus2-01 --query [].name -o tsv)
-        echo $queryout
-        hosturl="https://"$queryout
-        echo $hosturl
-        echo "HOST_URL=$(echo $hosturl)" >> $GITHUB_ENV
-        WORKING_VARIABLE=$(source .github/hosturl/endpoints; echo $dev_endpoint)
-        echo $WORKING_VARIABLE
-        if [ $hosturl != $WORKING_VARIABLE ]
-        then
-          echo $AZURE_DEPLOY_ENVIRONMENT
-          sed -i "s#${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=.*#${{ env.AZURE_DEPLOY_ENVIRONMENT }}_endpoint=$hosturl#" .github/hosturl/endpoints
-          cat .github/hosturl/endpoints
-          git add .github/hosturl/endpoints
-          git config --global user.email "dhanasekhar.podigiri@blueyonder.com"
-          git config --global user.name "dhanasekhar podigiri"
-          git commit .github/hosturl/endpoints -m "host name updated"
-          git push
-        fi
-
+        az webapp delete --name alm-app-java-almjavapoc --resource-group rg-by-workflow-shared-dev-eus2-01
