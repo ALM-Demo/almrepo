@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       AZURE_DEPLOY_ENVIRONMENT: dev
+      AZURE_WEB_APP_NAME: "alm-app-java-devlopmentpoc-dev"
     steps:
     - name: Login to Azure
       uses: azure/login@v1
@@ -16,7 +17,7 @@ jobs:
     - name: get url
       run: |
         out=$
-        if [[ -n $(echo $(az webapp list --query "[?name=='alm-app-java-devlopmentpoc-de']") | sed 's/\(\[\|\]\)//g') ]]; then
+        if [[ -n $(echo $(az webapp list --query "[?name=='$AZURE_WEB_APP_NAME']") | sed 's/\(\[\|\]\)//g') ]]; then
         echo "non empty"
         else
         echo "empty"
